@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <script>
+        function redirectBack(){
+            window.location = document.referrer
+        }
+    </script>
+    <center>
+        <form href="#" method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete this post?</p>
+            <button type="submit" class="btn btn-danger">Confirm</button>
+            <button type="button" class="btn btn-primary" onclick="redirectBack()">Abort</button>
+        </form>
+    </center>
+{% endblock %}
+<footer class="front">
+        <emp>This is just a clone with a repo on github</emp>
+</footer>

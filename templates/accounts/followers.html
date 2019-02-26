@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <table class="user_list" >
+            <thead >
+                <tr>
+                    <th>{{ title }}</th>
+                </tr>
+            </thead>
+            {% if data.count %}
+            <tbody>
+                {% for followObj in data %}
+                    <tr>
+                        <td>
+                            <img class="thumbnail" src="{{ followObj.follower.userprofile.display_picture.url }}"/>
+                        </td>
+                        <td>
+                            <a href="{% url 'accounts:user_detail' followObj.follower.userprofile.id %}">{{ followObj.follower.username }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            {% else %}
+                <tfoot>
+                    <tr>
+                        <td>No followers yet!!</td>
+                    </tr>
+                </tfoot>
+            {% endif %}
+        </table>
+{% endblock %}

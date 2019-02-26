@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <script>
+        $(document).ready(function(){
+            var isFollowing = "{{ isFollowing }}";
+
+            var buttonDiv = $('#followButton');
+            var followingButton = $('<button class="btn btn-link " onClick="follow()">Following</button>');
+            var followButton = $('<button class="btn btn-primary" onClick="follow()">Follow</button>');
+            if(isFollowing === "1"){
+                buttonDiv.append(followingButton)
+            }else{
+                buttonDiv.append(followButton)
+            }
+
+        });
+        function follow(){
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function(){
+                        if(this.readyState === 4 && this.status === 200 ){
+                            var isFollowing = "{{ isFollowing }}";
+                            var buttonDiv = $('#followButton');
+                            var followingButton = $('<button class="btn btn-link" onClick="follow()">Following</button>');
+                            var followButton = $('<button class="btn btn-primary" onClick="follow()">Follow</button>');
+                            buttonDiv.empty();
+                            var followers = $("#followers")[0]
+                            if(this.responseText === "1"){
+                                buttonDiv.append(followingButton);
+                                followers.innerText = parseInt(followers.innerText)+1;
+                            }else{
+                                buttonDiv.append(followButton)
+                                followers.innerText = parseInt(followers.innerText)-1;
+                            }
+                        }
+                    };
+                    xhttp.open("GET", "{{ profile.user.id }}/follow", true);
+                    xhttp.send();
+                }
+    </script>
+        <div class="user_header">
+            <img class="display_pictures" src="{{ profile.display_picture.url }}" />
+            <div class="user_data">
+                <div class="container-fluid">
+                    <strong><p>{{ profile.user.username }}</p></strong>
+                   {% if user.id == profile.user.id %}
+                        <a href="{% url "accounts:update_profile" profile.id %}">
+                            <button class="btn btn-primary">Update</button>
+                        </a>
+                   {% else %}
+                        <div id="followButton">
+
+                        </div>
+                   {% endif %}
+                </div>
+                <div class="site_details">
+                    <p><strong>{{ posts.count }}</strong> Posts </p>
+                    <p > <strong id="followers">{{ followers }}</strong> <a href="{% url 'accounts:followers_list' profile.id %}"> Followers </a></p>
+                    <p> <strong>{{ following }}</strong> <a href="{% url 'accounts:followings_list' profile.id %}">Following</a></p>
+                </div>
+                <div>
+                    <p><strong>{{ profile.user.first_name }} {{ profile.user.last_name }}</strong> {{ profile.status }}</p>
+                </div>
+
+            </div>
+        </div>
+    <br>
+
+        <div class="container-fluid posts">
+            {% for post in posts %}
+                <a href="{% url 'posts:post_details' post.id %}">
+                    <div class="post_container" >
+                        <img src="{{ post.image.url }}">
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+{% endblock %}

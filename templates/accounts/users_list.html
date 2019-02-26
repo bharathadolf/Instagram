@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body %}
+        <table class="user_list" >
+            <tbody>
+                {% for user in data %}
+                    <tr>
+                        <td>
+                            <img class="thumbnail" src="{{ user.display_picture.url }}"/>
+                        </td>
+                        <td>
+                            <a href="{%   url 'accounts:user_detail' user.id %}">{{ user.user.username }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

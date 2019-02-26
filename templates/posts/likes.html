@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <table class="user_list" >
+            <thead >
+                <tr>
+                    <th>{{ title }}</th>
+                </tr>
+            </thead>
+            {% if data.count %}
+            <tbody>
+                {% for LikeObj in data %}
+                    <tr>
+                        <td>
+                            <img class="thumbnail" src="{{ LikeObj.liked_by.userprofile.display_picture.url }}"/>
+                        </td>
+                        <td>
+                            <a href="{% url 'accounts:user_detail' LikeObj.liked_by.userprofile.id %}">{{ LikeObj.liked_by.username }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            {% else %}
+                <tfoot>
+                    <tr>
+                        <td>No Likes yet.</td>
+                    </tr>
+                </tfoot>
+            {% endif %}
+        </table>
+{% endblock %}

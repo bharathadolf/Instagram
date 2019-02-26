@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+        <div class="user_header">
+            <img class="display_pictures" src="{{ userProfile.display_picture.url }}" />
+            <div class="user_data">
+                <div class="container-fluid">
+                    <strong><p>{{ userProfile.user.username }}</p></strong>
+                    <a href="{% url "accounts:update_profile" userProfile.id %}">
+                        <button class="btn btn-primary">Update</button>
+                    </a>
+                </div>
+                <div class="site_details">
+                    <p><strong>{{ posts.count }}</strong> Posts </p>
+                    <p> <strong>{{ followers }}</strong> <a href="{% url 'accounts:followers_list' userProfile.id %}"> Followers </a> </p>
+                    <p> <strong>{{ following }}</strong> <a href="{% url 'accounts:followings_list' userProfile.id %}">Following</a></p>
+                </div>
+                <div>
+                    <p><strong>{{ userProfile.user.first_name }} {{ userProfile.user.last_name }}</strong> {{ userProfile.status }}</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="container-fluid posts" >
+            {% for post in posts %}
+                <a href="{% url 'posts:post_details' post.id %}">
+                <div class="post_container">
+                    <img src="{{ post.image.url }}" >
+                </div>
+                </a>
+           {% endfor %}
+        </div>
+
+{% endblock %}
