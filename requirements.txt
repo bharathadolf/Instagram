@@ -11,7 +11,7 @@ django-debug-toolbar==1.9.1
 django-filter==1.1.0
 django-phonenumber-field==2.0.0
 django-webpack-loader==0.6.0
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 djangorestframework-jwt==1.11.0
 et-xmlfile==1.0.1
 idna==2.7
