@@ -29,7 +29,7 @@ pickleshare==0.7.4
 Pillow==5.1.0
 prompt-toolkit==1.0.15
 psutil==5.4.6
-Pygments==2.2.0
+Pygments==2.7.4
 PyJWT==1.6.4
 pytz==2018.4
 requests==2.19.0
